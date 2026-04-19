@@ -8,12 +8,12 @@ FROM node:20
 WORKDIR /app
 RUN addgroup roboshop && useradd -g roboshop roboshop && \
     chown -R roboshop:roboshop /app
-ENV MONGO=true \
-    REDIS_URL='redis://redis:6379' \
-    MONGO_URL="mongodb://mongodb:27017/users" 
+ENV REDIS_HOST=redis \
+    CATALOGUE_HOST=catalogue \
+    CATALOGUE_PORT=8080
 LABEL project="roboshop" \
       author="krishna" \
-      component="user"
+      component="cart"
 COPY --chown=roboshop:roboshop --from=build /app /app
 USER roboshop
 CMD ["server.js"]
