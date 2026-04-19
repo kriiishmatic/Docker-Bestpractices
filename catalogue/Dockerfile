@@ -6,7 +6,7 @@ RUN npm isntall
 
 FROM node:20
 WORKDIR /app
-RUN addgroup roboshop && useradd -g roboshop roboshop/
+RUN RUN addgroup roboshop && useradd -g roboshop roboshop && \
     chown -R roboshop:roboshop /app
 ENV MONGO=true 
     MONGO_URL="mongodb://mongodb:27017/catalogue"
