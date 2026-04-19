@@ -1,6 +1,6 @@
 FROM node:20 AS build
 WORKDIR /app
-COPY *.jason .
+COPY *.json .
 COPY *.js .
 RUN npm install
 
