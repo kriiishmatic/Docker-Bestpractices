@@ -39,7 +39,8 @@ ENV CART_HOST="cart" \
 LABEL project="roboshop" \
       author="krishna" \
       component="payment"
-RUN addgroup -S roboshop && adduser -S roboshop -G roboshop && \
+RUN groupadd roboshop && \
+    useradd -g roboshop roboshop && \
     chown -R roboshop:roboshop /app
 USER roboshop
 CMD ["uwsgi","--ini","payment.ini"]
