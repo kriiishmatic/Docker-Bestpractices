@@ -24,7 +24,7 @@
 
 FROM python:3.9
 EXPOSE 8080
-WORKDIR /opt/server
+WORKDIR /app
 COPY payment.ini .
 COPY *.py .
 COPY requirements.txt .
@@ -36,4 +36,10 @@ ENV CART_HOST="cart" \
     AMQP_HOST="rabbitmq" \
     AMQP_USER="roboshop" \
     AMQP_PASS="roboshop123"
+LABEL project="roboshop" \
+      author="krishna" \
+      component="payment"
+RUN addgroup -S roboshop && adduser -S roboshop -G roboshop && \
+    chown -R roboshop:roboshop /app
+USER roboshop
 CMD ["uwsgi","--ini","payment.ini"]
