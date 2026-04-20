@@ -9,7 +9,7 @@ FROM maven:3.9.11
 WORKDIR /app
 RUN addgroup roboshop && useradd -g roboshop roboshop && \
     chown -R roboshop:roboshop /app
-ENV CART_ENDPOINT=cart>:8080 \
+ENV CART_ENDPOINT=cart:8080 \
     DB_HOST=mysql
 LABEL project="roboshop" \
       author="krishna" \
