@@ -40,10 +40,7 @@ services:
       - mysql:/var/lib/mysql
 
   rabbitmq:
-    build:
-      context: ./rabbitmq
-      dockerfile: Dockerfile
-    image: kriiishamtic/rabbitmq:3
+    image: rabbitmq:3
     container_name: rabbitmq
     environment:
       RABBITMQ_DEFAULT_USER: roboshop
