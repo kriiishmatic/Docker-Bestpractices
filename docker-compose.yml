@@ -2,7 +2,7 @@
 services:
   frontend:
     build:
-      context: ./cataloguefrontend
+      context: ./frontend
       dockerfile: Dockerfile
     image: kriiishamtic/frontend:v1
     container_name: frontend
