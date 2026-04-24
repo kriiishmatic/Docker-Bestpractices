@@ -1,8 +1,9 @@
+
 services:
-  build:
-    context: ./cataloguefrontend
-    dockerfile: Dockerfile
   frontend:
+    build:
+      context: ./cataloguefrontend
+      dockerfile: Dockerfile
     image: kriiishamtic/frontend:v1
     container_name: frontend
     ports:
@@ -13,14 +14,16 @@ services:
       - user
       - payment
       - shipping
+
   mongodb:
-  build:
-    context: ./mongodb
-    dockerfile: Dockerfile
+    build:
+      context: ./mongodb
+      dockerfile: Dockerfile
     image: kriiishamtic/mongodb:v1
     container_name: mongodb
     volumes:
       - mongodb:/data/db
+
   redis:
     image: kriiishamtic/redis:7
     container_name: redis
@@ -35,6 +38,7 @@ services:
     container_name: mysql
     volumes:
       - mysql:/var/lib/mysql
+
   rabbitmq:
     build:
       context: ./rabbitmq
@@ -46,6 +50,7 @@ services:
       RABBITMQ_DEFAULT_PASS: roboshop123
     volumes:
       - rabbitmq:/var/lib/rabbitmq
+
   catalogue:
     build:
       context: ./catalogue
@@ -54,6 +59,7 @@ services:
     container_name: catalogue
     depends_on:
       - mongodb
+
   cart:
     build:
       context: ./cart
@@ -64,6 +70,7 @@ services:
       - mongodb
       - catalogue
       - user
+
   user:
     build:
       context: ./user
@@ -72,6 +79,7 @@ services:
     container_name: user
     depends_on:
       - redis
+
   payment:
     build:
       context: ./payment
@@ -80,6 +88,7 @@ services:
     container_name: payment
     depends_on:
       - rabbitmq
+
   shipping:
     build:
       context: ./shipping
@@ -88,13 +97,14 @@ services:
     container_name: shipping
     depends_on:
       - mysql
+
 volumes:
   mongodb:
   redis:
   mysql:
   rabbitmq:
+
 networks:
   default:
-    external: false
     name: roboshop
     driver: bridge
