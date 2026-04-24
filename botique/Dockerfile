@@ -1,0 +1,63 @@
+ARG BUILDPLATFORM=linux/amd64
+
+FROM --platform=$BUILDPLATFORM python:3.14.3-alpine@sha256:faee120f7885a06fcc9677922331391fa690d911c020abb9e8025ff3d908e510 AS base
+
+FROM base AS builder
+
+ENV PYTHONDONTWRITEBYTECODE=1
+ENV PYTHONUNBUFFERED=1
+
+RUN apk update \
+    && apk add --no-cache g++ linux-headers \
+    && rm -rf /var/cache/apk/*
+
+# get packages
+COPY requirements.txt .
+RUN pip install -r requirements.txt
+
+FROM base
+
+ENV PYTHONDONTWRITEBYTECODE=1
+ENV PYTHONUNBUFFERED=1
+
+# Enable Profiler
+ENV ENABLE_PROFILER=1
+
+RUN apk update \
+    && apk add --no-cache libstdc++ \
+    && rm -rf /var/cache/apk/*
+
+WORKDIR /email_server
+
+# Grab packages from builder
+COPY --from=builder /usr/local/lib/python3.14/ /usr/local/lib/python3.14/
+
+# Add the application
+COPY . .
+
+EXPOSE 8080
+ENTRYPOINT [ "python", "email_server.py" ]
+
+##### python libraries are saved at system loation usr/local.lib/python3.14/ and we are copying that to our final image so that we can use those libraries in our final image.
+ARG BUILDPLATFORM=linux/amd64
+FROM --platform=$BUILDPLATFORM python:3.14.3-alpine@sha256:faee120f7885a06fcc9677922331391fa690d911c020abb9e8025ff3d908e510 AS base
+FROM base AS builder
+WORDKDIR /app
+ENV PYTHONDONTWRITEBYTECODE=1 \
+    PYTHONUNBUFFERED=1
+RUN apk update \
+    && apk add --no-cache g++ linux-headers \
+    && rm -rf /var/cache/apk/*
+COPY requirements.txt .
+RUN pip install -r requirements.txt
+FROM base
+WORKDIR /app
+ENV PYTHONDONTWRITEBYTECODE=1 \
+    PYTHONUNBUFFERED=1 \
+    ENABLE_PROFILER=1
+RUN apk update \
+    && apk add --no-cache libstdc++ \
+    && rm -rf /var/cache/apk/*
+COPY --from=builder /app /app
+EXPOSE 8080
+ENTRYPOINT [ "python", "email_server.py" ]
