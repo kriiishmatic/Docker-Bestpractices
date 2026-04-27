@@ -5,7 +5,7 @@ COPY src ./src
 RUN mvn clean package
 RUN mv target/shipping-1.0.jar shipping.jar
 
-FROM maven:3.9.11
+FROM jRE:17-alpine
 WORKDIR /app
 RUN addgroup roboshop && useradd -g roboshop roboshop && \
     chown -R roboshop:roboshop /app
