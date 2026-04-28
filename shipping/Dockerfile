@@ -5,7 +5,7 @@ COPY src ./src
 RUN mvn clean package
 RUN mv target/shipping-1.0.jar shipping.jar
 
-FROM jRE:17-alpine
+FROM eclipse-temurin:17-jre
 WORKDIR /app
 RUN addgroup roboshop && useradd -g roboshop roboshop && \
     chown -R roboshop:roboshop /app
