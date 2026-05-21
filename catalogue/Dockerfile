@@ -24,13 +24,14 @@ FROM node:20-alpine AS build
 WORKDIR /app
 COPY *.json .
 RUN npm install
-COPY *.js .
+COPY . .
+
 FROM node:20-alpine
 WORKDIR /app
-RUN addgroup -S roboshop && adduser -S roboshop -G roboshop 
-EXPOSE 8080
-ENV MONGO=true \
-    MONGO_URL="mongodb://mongodb:27017/catalogue"
+RUN addgroup -S roboshop && adduser -S roboshop -G roboshop
+LABEL project="roboshop" \
+      author="krishna" \
+      component="catalogue"
 COPY --chown=roboshop:roboshop --from=build /app /app
 USER roboshop
-CMD ["node", "server.js"]
+ENTRYPOINT ["node","server.js"]
