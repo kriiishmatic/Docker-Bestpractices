@@ -113,7 +113,7 @@ services:
     build:
       context: ./Frontend
       dockerfile: Dockerfile
-    image: 854481201869.dkr.ecr.us-east-1.amazonaws.com/roboshop/frontend:1.0.0
+    image: 854481201869.dkr.ecr.us-east-1.amazonaws.com/stackly/frontend:1.0.0
     container_name: frontend
     ports:
       - "80:80"
@@ -128,13 +128,13 @@ services:
     build:
       context: ./mongodb
       dockerfile: Dockerfile
-    image: 854481201869.dkr.ecr.us-east-1.amazonaws.com/roboshop/mongodb:1.0.0
+    image: 854481201869.dkr.ecr.us-east-1.amazonaws.com/stackly/mongodb:1.0.0
     container_name: mongodb
     volumes:
       - mongodb:/data/db
 
   redis:
-    image: 854481201869.dkr.ecr.us-east-1.amazonaws.com/roboshop/redis:1.0.0
+    image: 854481201869.dkr.ecr.us-east-1.amazonaws.com/stackly/redis:1.0.0
     container_name: redis
     volumes:
       - redis:/data
@@ -143,13 +143,13 @@ services:
     build:
       context: ./mysql
       dockerfile: Dockerfile
-    image: 854481201869.dkr.ecr.us-east-1.amazonaws.com/roboshop/mysql:1.0.0
+    image: 854481201869.dkr.ecr.us-east-1.amazonaws.com/stackly/mysql:1.0.0
     container_name: mysql
     volumes:
       - mysql:/var/lib/mysql
 
   rabbitmq:
-    image: 854481201869.dkr.ecr.us-east-1.amazonaws.com/roboshop/rabbitmq:1.0.0
+    image: 854481201869.dkr.ecr.us-east-1.amazonaws.com/stackly/rabbitmq:1.0.0
     container_name: rabbitmq
     environment:
       RABBITMQ_DEFAULT_USER: roboshop
@@ -161,7 +161,7 @@ services:
     build:
       context: ./catalogue
       dockerfile: Dockerfile
-    image: 854481201869.dkr.ecr.us-east-1.amazonaws.com/roboshop/catalogue:1.0.0
+    image: 854481201869.dkr.ecr.us-east-1.amazonaws.com/stackly/catalogue:1.0.0
     container_name: catalogue
     depends_on:
       - mongodb
@@ -170,7 +170,7 @@ services:
     build:
       context: ./cart
       dockerfile: Dockerfile
-    image: 854481201869.dkr.ecr.us-east-1.amazonaws.com/roboshop/cart:1.0.0
+    image: 854481201869.dkr.ecr.us-east-1.amazonaws.com/stackly/cart:1.0.0
     container_name: cart
     depends_on:
       - mongodb
@@ -181,7 +181,7 @@ services:
     build:
       context: ./user
       dockerfile: Dockerfile
-    image: 854481201869.dkr.ecr.us-east-1.amazonaws.com/roboshop/user:1.0.0
+    image: 854481201869.dkr.ecr.us-east-1.amazonaws.com/stackly/user:1.0.0
     container_name: user
     depends_on:
       - redis
@@ -190,7 +190,7 @@ services:
     build:
       context: ./payment
       dockerfile: Dockerfile
-    image: 854481201869.dkr.ecr.us-east-1.amazonaws.com/roboshop/payment:1.0.0
+    image: 854481201869.dkr.ecr.us-east-1.amazonaws.com/stackly/payment:1.0.0
     container_name: payment
     depends_on:
       - rabbitmq
@@ -199,7 +199,7 @@ services:
     build:
       context: ./shipping
       dockerfile: Dockerfile
-    image: 854481201869.dkr.ecr.us-east-1.amazonaws.com/roboshop/shipping:1.0.0
+    image: 854481201869.dkr.ecr.us-east-1.amazonaws.com/stackly/shipping:1.0.0
     container_name: shipping
     depends_on:
       - mysql
@@ -212,7 +212,6 @@ volumes:
 
 networks:
   default:
-    name: roboshop
+    name: stackly
     driver: bridge
-
 
