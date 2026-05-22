@@ -1,10 +1,119 @@
 
+# services:
+#   frontend:
+#     build:
+#       context: ./Frontend
+#       dockerfile: Dockerfile
+#     image: kriiishmatic/frontend:v1
+#     container_name: frontend
+#     ports:
+#       - "80:80"
+#     depends_on:
+#       - catalogue
+#       - cart
+#       - user
+#       - payment
+#       - shipping
+
+#   mongodb:
+#     build:
+#       context: ./mongodb
+#       dockerfile: Dockerfile
+#     image: kriiishmatic/mongodb:v1
+#     container_name: mongodb
+#     volumes:
+#       - mongodb:/data/db
+
+#   redis:
+#     image: redis:7
+#     container_name: redis
+#     volumes:
+#       - redis:/data
+
+#   mysql:
+#     build:
+#       context: ./mysql
+#       dockerfile: Dockerfile
+#     image: kriiishmatic/mysql:v1
+#     container_name: mysql
+#     volumes:
+#       - mysql:/var/lib/mysql
+
+#   rabbitmq:
+#     image: rabbitmq:3
+#     container_name: rabbitmq
+#     environment:
+#       RABBITMQ_DEFAULT_USER: roboshop
+#       RABBITMQ_DEFAULT_PASS: roboshop123
+#     volumes:
+#       - rabbitmq:/var/lib/rabbitmq
+
+#   catalogue:
+#     build:
+#       context: ./catalogue
+#       dockerfile: Dockerfile
+#     image: kriiishmatic/catalogue:v1
+#     container_name: catalogue
+#     depends_on:
+#       - mongodb
+
+#   cart:
+#     build:
+#       context: ./cart
+#       dockerfile: Dockerfile
+#     image: kriiishmatic/cart:v1
+#     container_name: cart
+#     depends_on:
+#       - mongodb
+#       - catalogue
+#       - user
+
+#   user:
+#     build:
+#       context: ./user
+#       dockerfile: Dockerfile
+#     image: kriiishmatic/user:v1
+#     container_name: user
+#     depends_on:
+#       - redis
+
+#   payment:
+#     build:
+#       context: ./payment
+#       dockerfile: Dockerfile
+#     image: kriiishmatic/payment:v1
+#     container_name: payment
+#     depends_on:
+#       - rabbitmq
+
+#   shipping:
+#     build:
+#       context: ./shipping
+#       dockerfile: Dockerfile
+#     image: kriiishmatic/shipping:v1
+#     container_name: shipping
+#     depends_on:
+#       - mysql
+
+# volumes:
+#   mongodb:
+#   redis:
+#   mysql:
+#   rabbitmq:
+
+# networks:
+#   default:
+#     name: roboshop
+#     driver: bridge
+
+
+
 services:
   frontend:
     build:
       context: ./Frontend
       dockerfile: Dockerfile
-    image: kriiishmatic/frontend:v1
+    image: 854481201869.dkr.ecr.us-east-1.amazonaws.com/roboshop/frontend:1.0.0
     container_name: frontend
     ports:
       - "80:80"
@@ -19,13 +128,13 @@ services:
     build:
       context: ./mongodb
       dockerfile: Dockerfile
-    image: kriiishmatic/mongodb:v1
+    image: 854481201869.dkr.ecr.us-east-1.amazonaws.com/roboshop/mongodb:1.0.0
     container_name: mongodb
     volumes:
       - mongodb:/data/db
 
   redis:
-    image: redis:7
+    image: 854481201869.dkr.ecr.us-east-1.amazonaws.com/roboshop/redis:1.0.0
     container_name: redis
     volumes:
       - redis:/data
@@ -34,13 +143,13 @@ services:
     build:
       context: ./mysql
       dockerfile: Dockerfile
-    image: kriiishmatic/mysql:v1
+    image: 854481201869.dkr.ecr.us-east-1.amazonaws.com/roboshop/mysql:1.0.0
     container_name: mysql
     volumes:
       - mysql:/var/lib/mysql
 
   rabbitmq:
-    image: rabbitmq:3
+    image: 854481201869.dkr.ecr.us-east-1.amazonaws.com/roboshop/rabbitmq:1.0.0
     container_name: rabbitmq
     environment:
       RABBITMQ_DEFAULT_USER: roboshop
@@ -52,7 +161,7 @@ services:
     build:
       context: ./catalogue
       dockerfile: Dockerfile
-    image: kriiishmatic/catalogue:v1
+    image: 854481201869.dkr.ecr.us-east-1.amazonaws.com/roboshop/catalogue:1.0.0
     container_name: catalogue
     depends_on:
       - mongodb
@@ -61,7 +170,7 @@ services:
     build:
       context: ./cart
       dockerfile: Dockerfile
-    image: kriiishmatic/cart:v1
+    image: 854481201869.dkr.ecr.us-east-1.amazonaws.com/roboshop/cart:1.0.0
     container_name: cart
     depends_on:
       - mongodb
@@ -72,7 +181,7 @@ services:
     build:
       context: ./user
       dockerfile: Dockerfile
-    image: kriiishmatic/user:v1
+    image: 854481201869.dkr.ecr.us-east-1.amazonaws.com/roboshop/user:1.0.0
     container_name: user
     depends_on:
       - redis
@@ -81,7 +190,7 @@ services:
     build:
       context: ./payment
       dockerfile: Dockerfile
-    image: kriiishmatic/payment:v1
+    image: 854481201869.dkr.ecr.us-east-1.amazonaws.com/roboshop/payment:1.0.0
     container_name: payment
     depends_on:
       - rabbitmq
@@ -90,7 +199,7 @@ services:
     build:
       context: ./shipping
       dockerfile: Dockerfile
-    image: kriiishmatic/shipping:v1
+    image: 854481201869.dkr.ecr.us-east-1.amazonaws.com/roboshop/shipping:1.0.0
     container_name: shipping
     depends_on:
       - mysql
@@ -105,3 +214,5 @@ networks:
   default:
     name: roboshop
     driver: bridge
+
+
