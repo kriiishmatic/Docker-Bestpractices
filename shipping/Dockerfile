@@ -9,8 +9,8 @@ FROM eclipse-temurin:17-jre
 WORKDIR /app
 RUN addgroup roboshop && useradd -g roboshop roboshop && \
     chown -R roboshop:roboshop /app
-ENV CART_ENDPOINT=cart:8080 \
-    DB_HOST=mysql
+# ENV CART_ENDPOINT=cart:8080 \
+#     DB_HOST=mysql
 LABEL project="roboshop" \
       author="krishna" \
       component="shipping"

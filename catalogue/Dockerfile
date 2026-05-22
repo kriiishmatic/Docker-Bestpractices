@@ -29,9 +29,9 @@ COPY . .
 FROM node:20-alpine
 WORKDIR /app
 RUN addgroup -S roboshop && adduser -S roboshop -G roboshop
-ENV REDIS_HOST=redis \
-    CATALOGUE_HOST=catalogue \
-    CATALOGUE_PORT=8080
+# ENV REDIS_HOST=redis \
+#     CATALOGUE_HOST=catalogue \
+#     CATALOGUE_PORT=8080
 LABEL project="roboshop" \
       author="krishna" \
       component="catalogue"
